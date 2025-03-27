@@ -187,7 +187,7 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
-                if (!verificarBeneficiarioCPF(beneficiario.CPF))
+                if (verificarBeneficiarioCPF(beneficiario.CPF))
                     return Json(new { success = false, message = BeneficiarioMsg.EXC0002 });
                 else
                 {
