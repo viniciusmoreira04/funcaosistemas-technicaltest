@@ -28,10 +28,14 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult Incluir(ClienteModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
                 Response.StatusCode = 400;
-                return Json(new { success = false, message = ClienteMsg.EXC0001 });
+                return Json(string.Join(Environment.NewLine, erros));
             }
 
             if (!CPFValidator.IsValidCpf(model.CPF))
@@ -74,10 +78,14 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult Alterar(ClienteModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
                 Response.StatusCode = 400;
-                return Json(new { success = false, message = ClienteMsg.EXC0001 });
+                return Json(string.Join(Environment.NewLine, erros));
             }
 
             BoCliente boCliente = new BoCliente();

@@ -4,6 +4,7 @@ using FI.WebAtividadeEntrevista.Resources;
 using FI.WebAtividadeEntrevista.Validators;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using WebAtividadeEntrevista.Models;
 
@@ -14,10 +15,14 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult IncluirBeneficiario(BeneficiarioModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
                 Response.StatusCode = 400;
-                return Json(new { success = false, message = ClienteMsg.EXC0001 });
+                return Json(string.Join(Environment.NewLine, erros));
             }
 
             if (!CPFValidator.IsValidCpf(model.CPF))
@@ -38,10 +43,14 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult AtualizarBeneficiario(BeneficiarioModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
+                List<string> erros = (from item in ModelState.Values
+                                      from error in item.Errors
+                                      select error.ErrorMessage).ToList();
+
                 Response.StatusCode = 400;
-                return Json(new { success = false, message = ClienteMsg.EXC0001 });
+                return Json(string.Join(Environment.NewLine, erros));
             }
 
             if (!CPFValidator.IsValidCpf(model.CPF))
