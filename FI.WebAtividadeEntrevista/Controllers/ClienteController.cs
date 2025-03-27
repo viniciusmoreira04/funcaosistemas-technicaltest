@@ -37,12 +37,6 @@ namespace WebAtividadeEntrevista.Controllers
             if (!CPFValidator.IsValidCpf(model.CPF))
                 return Json(new { success = false, message = BeneficiarioMsg.EXC0001 });
 
-            if (!EmailValidator.IsValid(model.Email))
-                return Json(new { success = false, message = ClienteMsg.EXC0003 });
-
-            if (!PhoneNumberValidator.IsValid(model.Telefone))
-                return Json(new { success = false, message = ClienteMsg.EXC0004 });
-
             BoCliente boCliente = new BoCliente();
 
             if (!boCliente.VerificarExistencia(model.CPF))

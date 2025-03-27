@@ -138,8 +138,6 @@
       <DependentUpon>ClienteMsg.resx</DependentUpon>
     </Compile>
     <Compile Include="Validators\CPFValidator.cs" />
-    <Compile Include="Validators\EmailValidator.cs" />
-    <Compile Include="Validators\PhoneNumberValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BancoDeDados.mdf" />
